@@ -4,3 +4,4 @@
 
     Scenario: test
       When Привет
+      Then Проверка "привет"

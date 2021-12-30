@@ -1,4 +1,5 @@
 package cucumber.steps;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.http.Headers;
 
@@ -12,5 +13,10 @@ public class BaseSteps {
                 "https://jsonplaceholder.typicode.com/todos/1",
                 "",
                 createDefaultHeaders());
+    }
+
+    @Then("^Проверка \"([^\"]*)\"$")
+    public void check(String a) throws InterruptedException {
+
     }
 }
