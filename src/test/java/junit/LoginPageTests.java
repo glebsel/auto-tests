@@ -3,6 +3,7 @@ package junit;
 import java.time.Duration;
 import junit.pageobjects.LoginPO;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,49 +51,54 @@ public class LoginPageTests {
   @Test
   public void loginRightData() throws InterruptedException {
     LoginPO loginPO = new LoginPO();
-    loginPO.getLoginPage(driver)
-        .writeLogin("fominaelena", driver)
-        .writePassword("1P73BP4Z", driver)
-        .clickLoginButton(driver)
-        .didWeGetMainPage(driver);
+    Assert.assertTrue(loginPO.setDriver(driver)
+        .getLoginPage()
+        .writeLogin("fominaelena")
+        .writePassword("1P73BP4Z")
+        .clickLoginButton()
+        .didWeGetMainPage(driver));
   }
 
   @Test
   public void loginWrongLogin() throws InterruptedException {
     LoginPO loginPO = new LoginPO();
-    loginPO.getLoginPage(driver)
-        .writeLogin("fominaelena1", driver)
-        .writePassword("1P73BP4Z", driver)
-        .clickLoginButton(driver)
-        .didWeGetAlert(driver);
+    Assert.assertTrue(loginPO.setDriver(driver)
+        .getLoginPage()
+        .writeLogin("fominaelena1")
+        .writePassword("1P73BP4Z")
+        .clickLoginButtonAlert()
+        .didWeGetAlert());
   }
 
   @Test
   public void loginWrongPassword() throws InterruptedException {
     LoginPO loginPO = new LoginPO();
-    loginPO.getLoginPage(driver)
-        .writeLogin("fominaelena", driver)
-        .writePassword("1P73BP", driver)
-        .clickLoginButton(driver)
-        .didWeGetAlert(driver);
+    Assert.assertTrue(loginPO.setDriver(driver)
+        .getLoginPage()
+        .writeLogin("fominaelena")
+        .writePassword("1P73BP")
+        .clickLoginButtonAlert()
+        .didWeGetAlert());
   }
 
   @Test
   public void loginEnptyFilds() throws InterruptedException {
     LoginPO loginPO = new LoginPO();
-    loginPO.getLoginPage(driver)
-        .writeLogin("", driver)
-        .writePassword("", driver)
-        .clickLoginButton(driver)
-        .didWeGetAlert(driver);
+    Assert.assertTrue(loginPO.setDriver(driver)
+        .getLoginPage()
+        .writeLogin("")
+        .writePassword("")
+        .clickLoginButtonAlert()
+        .didWeGetAlert());
   }
 
   @Test
   public void clickPasswordRecovery() throws InterruptedException {
     LoginPO loginPO = new LoginPO();
-    loginPO.getLoginPage(driver)
-        .clickPasswordRecovery(driver)
-        .didWeGetPasswordRecoveryPage(driver);
+    Assert.assertTrue(loginPO.setDriver(driver)
+        .getLoginPage()
+        .clickPasswordRecovery()
+        .didWeGetPasswordRecoveryPage(driver));
   }
 
 }

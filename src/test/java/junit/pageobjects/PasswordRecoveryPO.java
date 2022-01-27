@@ -8,12 +8,10 @@ public class PasswordRecoveryPO implements PageObject {
 
   private By PasswordRecoveryDiv = By.xpath("//*[contains(text(),'Восстановление пароля')]");
 
-  public void didWeGetPasswordRecoveryPage(WebDriver driver){
+  public Boolean didWeGetPasswordRecoveryPage(WebDriver driver){
 
     logger.info("Проверка перехода на страницу восстановления пароля.");
 
-    Assert.assertTrue(driver.findElements(PasswordRecoveryDiv).size() > 0);
-
-    logger.info("Переход на страницу восстановления пароля выполнен.");
+    return driver.findElements(PasswordRecoveryDiv).size() > 0;
   }
 }

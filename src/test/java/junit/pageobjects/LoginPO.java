@@ -1,12 +1,16 @@
 package junit.pageobjects;
 
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPO implements PageObject {
 
-  private String url = "https://lmslite47vr.demo.mirapolis.ru/mira/";
+  private String Url = "https://lmslite47vr.demo.mirapolis.ru/mira/";
+
+  private WebDriver driver;
 
   private By LoginInput = By.name("user");
 
@@ -16,18 +20,26 @@ public class LoginPO implements PageObject {
 
   private By PasswordRecoveryDiv = By.xpath("//*[text()='Забыли пароль?']/ancestor::a");
 
-  public LoginPO getLoginPage(WebDriver driver){
+  public LoginPO setDriver(WebDriver driver){
 
-    logger.info("Попытка перейти на страницу " + url);
+    this.driver = driver;
 
-    driver.get(url);
+    return this;
 
-    logger.info("Выполнен переход на страницу " + url);
-
-    return new LoginPO();
   }
 
-  public LoginPO writeLogin(String login, WebDriver driver){
+  public LoginPO getLoginPage(){
+
+    logger.info("Попытка перейти на страницу " + Url);
+
+    driver.get(Url);
+
+    logger.info("Выполнен переход на страницу " + Url);
+
+    return this;
+  }
+
+  public LoginPO writeLogin(String login){
 
     logger.info("Попытка ввести логин " + login);
 
@@ -35,10 +47,10 @@ public class LoginPO implements PageObject {
 
     logger.info("Введен логин " + login);
 
-    return new LoginPO();
+    return this;
   }
 
-  public LoginPO writePassword(String password, WebDriver driver){
+  public LoginPO writePassword(String password){
 
     logger.info("Попытка ввести пароль " + password);
 
@@ -46,10 +58,10 @@ public class LoginPO implements PageObject {
 
     logger.info("Введен пароль " + password);
 
-    return new LoginPO();
+    return this;
   }
 
-  public MainPO clickLoginButton(WebDriver driver){
+  public MainPO clickLoginButton(){
 
     logger.info("Попытка нажать на кнопку логина.");
 
@@ -60,7 +72,18 @@ public class LoginPO implements PageObject {
     return new MainPO();
   }
 
-  public PasswordRecoveryPO clickPasswordRecovery(WebDriver driver){
+  public LoginPO clickLoginButtonAlert(){
+
+    logger.info("Попытка нажать на кнопку логина с ожиданием алерта.");
+
+    driver.findElement(LoginButton).click();
+
+    logger.info("Кнопка логина нажата с ожиданием алерта.");
+
+    return this;
+  }
+
+  public PasswordRecoveryPO clickPasswordRecovery(){
 
     logger.info("Попытка нажать на кнопку текст для восстановления пароля.");
 
@@ -69,5 +92,13 @@ public class LoginPO implements PageObject {
     logger.info("Нажат текст для восстановления пароля.");
 
     return new PasswordRecoveryPO();
+  }
+
+  public Boolean didWeGetAlert(){
+
+    logger.info("Проверка наличия алерта.");
+
+    Alert alert = driver.switchTo().alert();
+    return alert.getText().contains("Неверные данные для авторизации");
   }
 }
